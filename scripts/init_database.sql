@@ -1,46 +1,34 @@
+-- ==============================
+-- INIT DATABASE
+-- ==============================
 
---
--- Base de datos: `datawarehouse`
---
+DROP DATABASE IF EXISTS datawarehouse;
+CREATE DATABASE datawarehouse;
+USE datawarehouse;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `bronze_crm_cust_info`
-
-
-DROP TABLE IF EXISTS bronze_crm_cust_info;
+-- ==============================
+-- BRONZE TABLES
+-- ==============================
 
 CREATE TABLE bronze_crm_cust_info (
-  cst_id INT NOT NULL,
+  cst_id INT,
   cst_key VARCHAR(50),
   cst_firstname VARCHAR(50),
   cst_lastname VARCHAR(50),
   cst_marital_status VARCHAR(50),
   cst_gender VARCHAR(10),
-  cst_create_date DATE
+  cst_create_date VARCHAR(50)
 );
 
--- --------------------------------------------------------
--- ==============================
--- bronze_crm_prd_info
--- ==============================
-DROP TABLE IF EXISTS bronze_crm_prd_info;
-
 CREATE TABLE bronze_crm_prd_info (
-  prd_id INT NOT NULL,
+  prd_id INT,
   prd_key VARCHAR(50),
   prd_nm VARCHAR(50),
   prd_cost INT,
   prd_line VARCHAR(50),
-  prd_start_dt DATETIME,
-  prd_end_dt DATETIME
+  prd_start_dt VARCHAR(50),
+  prd_end_dt VARCHAR(50)
 );
-
--- ==============================
--- bronze_crm_sales_details
--- ==============================
-DROP TABLE IF EXISTS bronze_crm_sales_details;
 
 CREATE TABLE bronze_crm_sales_details (
   sls_ord_num VARCHAR(50),
@@ -51,40 +39,19 @@ CREATE TABLE bronze_crm_sales_details (
   sls_due_dt INT,
   sls_sales INT,
   sls_quantity INT,
-  sls_price INT
+  sls_price VARCHAR(50)
 );
 
 -- ==============================
--- bronze_erp_cust_az12
+-- ETL LOG
 -- ==============================
-DROP TABLE IF EXISTS bronze_erp_cust_az12;
 
-CREATE TABLE bronze_erp_cust_az12 (
-  cid VARCHAR(50),
-  bdate DATE,
-  gen VARCHAR(50)
+CREATE TABLE etl_log (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  process_name VARCHAR(100),
+  table_name VARCHAR(100),
+  issue_type VARCHAR(100),
+  issue_count INT,
+  log_date DATETIME DEFAULT NOW()
 );
-
--- ==============================
--- bronze_erp_loc_a101
--- ==============================
-DROP TABLE IF EXISTS bronze_erp_loc_a101;
-
-CREATE TABLE bronze_erp_loc_a101 (
-  cid VARCHAR(50),
-  cntry VARCHAR(50)
-);
-
--- ==============================
--- bronze_erp_px_cat_g1v2
--- ==============================
-DROP TABLE IF EXISTS bronze_erp_px_cat_g1v2;
-
-CREATE TABLE bronze_erp_px_cat_g1v2 (
-  id VARCHAR(50),
-  cat VARCHAR(50),
-  subcat VARCHAR(50),
-  maintenance VARCHAR(50)
-);
-
 
